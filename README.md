@@ -89,6 +89,50 @@ a.value = 1
   </button>
 </template>
 ```
+4. 计算属性 
+```js
+<script setup>
+import { reactive, computed } from 'vue'
+
+const author = reactive({
+  name: 'John Doe',
+  books: [
+    'Vue 2 - Advanced Guide',
+    'Vue 3 - Basic Guide',
+    'Vue 4 - The Mystery'
+  ]
+})
+
+// 一个计算属性 ref
+const publishedBooksMessage = computed(() => {
+  return author.books.length > 0 ? 'Yes' : 'No'
+})
+</script>
+
+<template>
+  <p>Has published books:</p>
+  <span>{{ publishedBooksMessage }}</span>
+</template>
+```
+5. Class 与 Style 绑定
+```vue
+<div
+  class="static"
+  :class="{ active: isActive, 'text-danger': hasError }"
+></div>
+const isActive = ref(true)
+const error = ref(null)
+
+const classObject = computed(() => ({
+  active: isActive.value && !error.value,
+  'text-danger': error.value && error.value.type === 'fatal'
+}))
+<div :class="classObject"></div>
+
+<div :style="{ color: activeColor, fontSize: fontSize + 'px' }"></div>
+
+```
+
 
 
 

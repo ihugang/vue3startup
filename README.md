@@ -52,6 +52,43 @@ onMounted(() => {
 <form @submit.prevent="onSubmit">...</form>
 
 ```
+3. 变量和对象的响应式封装 ref & reactive **Vue 的响应式系统的最佳实践是 仅使用你声明对象的代理版本。**
+```js
+const a = ref(0)
+const b = ref(false)
+const c = ref("hello world")
+
+const d = reactive({
+  name: 'Jane',
+  age: 23,
+  friends:[{
+    name: 'Tome',
+    age:20
+    }]
+})
+
+let count = $ref(0)   // Notice
+
+function increment() {
+  // 无需 .value
+  count++
+}
+
+const raw = {}
+const proxy = reactive(raw)
+
+// 代理对象和原始对象不是全等的
+console.log(proxy === raw) // false
+
+// 在js中对ref对象赋值，需要用.value，例如：
+a.value = 1
+
+<template>
+  <button @click="increment">
+    {{ a }} <!-- 无需 .value -->
+  </button>
+</template>
+```
 
 
 
